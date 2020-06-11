@@ -30,11 +30,14 @@ class End2EndTest {
     }
 
     private fun shouldDescribePlayerRoom(player: Player) {
-        RestAssured.given().get("/katacomb/player/" + player.sid)
+        RestAssured
+                .given()
+                    .contentType(ContentType.JSON)
+                    .get("/katacomb/player/" + player.sid)
                 .then()
-                .body(equalTo("""{"description" : "room direction description",
-                        "items": []}"""))
-                .statusCode(HttpStatus.SC_OK)
+                    .content("description", equalTo("info"))
+//                    .body(equalTo("""{"description" : "info","items": []}"""))
+                    .statusCode(HttpStatus.SC_OK)
     }
 
     private fun shouldCreatePlayer(player: Player) {
