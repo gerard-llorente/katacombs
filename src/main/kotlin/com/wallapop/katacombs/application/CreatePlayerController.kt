@@ -14,11 +14,10 @@ class CreatePlayerController(val creator: PlayerCreator) {
 
     @PostMapping("/katacomb/player")
     @ResponseStatus(CREATED)
-    fun createPlayer(@RequestBody createRequest: Player) {
-
-        creator.invoke(UserId.fromString(createRequest.sid))
-
+    fun createPlayer(@RequestBody createRequest: CreatePlayerRequest) {
+        creator.invoke(UserId.fromString(createRequest.player.sid))
     }
 
 }
-data class Player(var sid: String, var name:String)
+data class CreatePlayerRequest(val player: Player)
+data class Player(val sid: String, val name:String)
