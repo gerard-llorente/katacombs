@@ -2,7 +2,7 @@ package com.wallapop.katacombs
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wallapop.katacombs.application.Player
-import com.wallapop.katacombs.application.PlayerRequest
+import com.wallapop.katacombs.application.CreatePlayerRequest
 import io.restassured.RestAssured
 import io.restassured.http.ContentType
 import org.apache.http.HttpStatus
@@ -40,7 +40,7 @@ class End2EndTest {
     private fun shouldCreatePlayer(player: Player) {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(ObjectMapper().writeValueAsString(PlayerRequest(player)))
+                .body(ObjectMapper().writeValueAsString(CreatePlayerRequest(player)))
                 .post("/katacomb/player")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
